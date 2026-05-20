@@ -19,5 +19,4 @@ Fuentes principales:
 - CAR
 - Datos Abiertos Colombia
 
-Nota:
-Los datasets de gran tamaño no se almacenarán directamente en el repositorio.
+
