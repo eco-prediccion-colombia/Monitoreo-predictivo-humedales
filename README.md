@@ -1,5 +1,10 @@
+<p align="center">
+  <img src="docs/figures/banner_ecoprediccion.png" width="100%">
+</p>
+
 
 # Sistema de Inteligencia Ambiental Predictiva para Humedales Colombianos
+
 
 ## Monitoreo predictivo de la Laguna de Fúquene mediante IA y datos abiertos
 
