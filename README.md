@@ -1,7 +1,7 @@
 
-# <p align="center">
-  # <img src="docs/figures/banner_ecoprediccion.png" width="100%">
-# </p>
+<p align="center">
+   <img src="docs/figures/banner_ecoprediccion.png" width="100%">
+</p>
 
 
 # Sistema de Inteligencia Ambiental Predictiva para Humedales Colombianos
