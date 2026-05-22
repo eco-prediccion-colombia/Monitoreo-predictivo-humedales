@@ -66,13 +66,4 @@ Las variables hidrológicas son fundamentales debido a que afectan directamente:
 
 ---
 
-# Estructura sugerida
 
-```text id="e6v4m3"
-hidrologia/
-├── niveles/
-│   ├── chalet_norte/
-│   └── isla_santuario/
-│
-├── precipitacion/
-│   └── isla_santuario/
