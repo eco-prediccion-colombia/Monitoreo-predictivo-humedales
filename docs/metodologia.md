@@ -1,292 +1,222 @@
 # Metodología
 
-## Sistema de Inteligencia Ambiental Predictiva para Humedales Colombianos
+## Introducción
+
+El Sistema de Inteligencia Ambiental Predictiva para Humedales Colombianos utiliza técnicas de análisis geoespacial, datos abiertos e inteligencia artificial para monitorear y analizar la dinámica ecológica de la Laguna de Fúquene.
+
+La metodología integra imágenes satelitales, variables climáticas y modelos de clasificación supervisada para identificar patrones ambientales y generar información útil para procesos de monitoreo y gestión territorial.
 
 ---
 
-# Descripción General
+# Área de estudio
 
-La metodología del proyecto integra análisis geoespacial, procesamiento satelital, inteligencia artificial y datos abiertos para monitorear dinámicas ecológicas en humedales colombianos.
+La Laguna de Fúquene se localiza entre los departamentos de Cundinamarca y Boyacá, Colombia.
 
-El caso piloto corresponde a la Laguna de Fúquene, ecosistema afectado por procesos de degradación ambiental y expansión de vegetación invasora.
+Es uno de los humedales altoandinos más importantes del país y presenta procesos de transformación asociados a:
 
-La metodología busca construir una arquitectura reproducible, escalable y orientada al análisis ambiental mediante herramientas de código abierto y procesamiento cloud.
+* expansión de vegetación invasora;
+* sedimentación;
+* presión agropecuaria;
+* alteraciones hidrológicas;
+* cambio climático.
 
----
-
-# Enfoque Metodológico
-
-El flujo metodológico se divide en siete componentes principales:
-
-```text
-Adquisición de datos
-        ↓
-Procesamiento satelital
-        ↓
-Generación de índices espectrales
-        ↓
-Clasificación supervisada
-        ↓
-Validación del modelo
-        ↓
-Análisis temporal
-        ↓
-Escenarios predictivos
-```
+La región de interés (ROI) fue delimitada mediante geometrías geoespaciales específicas para el ecosistema lagunar.
 
 ---
 
-# 1. Adquisición de Datos
-
-El proyecto integra múltiples fuentes de datos abiertos ambientales y climáticos.
+# Fuentes de datos
 
 ## Imágenes satelitales
 
 ### Sentinel-2
 
-Utilizado para:
-- monitoreo multiespectral
-- análisis de vegetación
-- identificación de coberturas acuáticas
+Utilizado para el monitoreo reciente debido a su resolución espacial de 10 metros.
+
+Principales bandas utilizadas:
+
+* Azul (B2)
+* Verde (B3)
+* Rojo (B4)
+* Infrarrojo Cercano (B8)
+* SWIR 1 (B11)
+* SWIR 2 (B12)
 
 ### Landsat
 
-Utilizado para:
-- análisis histórico
-- series temporales
-- comparación multianual
+Utilizado para ampliar la cobertura temporal histórica del análisis.
+
+Sensores empleados:
+
+* Landsat 8
+* Landsat 9
 
 ---
 
-# Datos Climáticos
+## Datos climáticos
 
-## ERA5
+### CHIRPS
 
-Variables climáticas utilizadas:
-- temperatura
-- precipitación
-- humedad
-- variables atmosféricas
+Fuente global de precipitación satelital utilizada para estimar acumulados mensuales de lluvia.
 
-## CHIRPS
+### ERA5-Land
 
-Utilizado para:
-- análisis de precipitación histórica
-- variabilidad climática
+Base de datos climática utilizada para obtener:
+
+* temperatura;
+* velocidad del viento;
+* dirección del viento.
 
 ---
 
-# Datos Institucionales
+# Preprocesamiento
 
-- IDEAM
-- CAR
-- Datos Abiertos Colombia
+Antes del análisis se aplican procesos de limpieza y armonización de imágenes.
 
-Estos datos complementan el análisis ambiental y territorial.
+## Enmascaramiento de nubes
 
----
+Se eliminan píxeles afectados por:
 
-# 2. Procesamiento Satelital
+* nubes;
+* sombras;
+* cirros;
+* artefactos atmosféricos.
 
-El procesamiento principal se realiza mediante Google Earth Engine.
+## Armonización multisensor
 
-## Procesos implementados
+Las bandas espectrales de Landsat y Sentinel-2 son transformadas a una estructura común para permitir análisis multitemporales consistentes.
 
-- filtrado temporal
-- filtrado espacial
-- máscara de nubes
-- limpieza de imágenes
-- generación de mosaicos
-- recorte por región de interés
-- normalización de variables
+Este procedimiento permite construir una serie histórica homogénea utilizando sensores diferentes.
 
 ---
 
-# Región de Estudio
+# Cálculo de índices espectrales
 
-La región de análisis corresponde a la Laguna de Fúquene y áreas asociadas de influencia ecológica.
+A partir de las bandas satelitales se calculan diversos índices ambientales.
 
----
+## NDVI
 
-# 3. Índices Espectrales
-
-Se calculan índices espectrales para mejorar diferenciación de coberturas.
-
-## Índices implementados
-
-### NDVI
-
-Utilizado para:
-- vigor vegetal
-- cobertura vegetal
+Utilizado para caracterizar cobertura vegetal y actividad fotosintética.
 
 ## NDWI
 
-Utilizado para:
-- detección de agua superficial
+Orientado a la detección de cuerpos de agua.
 
 ## MNDWI
 
-Utilizado para:
-- delimitación de cuerpos de agua
+Utilizado para mejorar la separación entre agua y superficie terrestre.
 
 ## FAI
 
-Utilizado para:
-- detección de vegetación flotante
-- identificación de buchón de agua
+Índice diseñado para detectar vegetación flotante y concentraciones asociadas a especies invasoras como el buchón de agua.
 
 ---
 
-# 4. Clasificación Supervisada
+# Construcción de muestras de entrenamiento
 
-El sistema utiliza modelos de clasificación supervisada mediante Random Forest.
+Se generaron muestras representativas para tres clases ambientales principales:
 
-## Clases definidas
+| Clase | Descripción             |
+| ----- | ----------------------- |
+| 0     | Agua                    |
+| 1     | Buchón de agua          |
+| 2     | Tierra firme y juncales |
 
-- agua
-- buchón de agua
-- tierra/juncos
-
----
-
-# Variables utilizadas
-
-## Variables espectrales
-
-- bandas Sentinel-2
-- bandas Landsat
-
-## Variables derivadas
-
-- NDVI
-- NDWI
-- MNDWI
-- FAI
-
-## Variables climáticas
-
-- precipitación
-- temperatura
-- humedad
+Las muestras fueron construidas mediante interpretación visual sobre imágenes satelitales de referencia.
 
 ---
 
-# Entrenamiento del Modelo
+# Clasificación supervisada
 
-El entrenamiento incluye:
+## Algoritmo utilizado
 
-- generación de muestras
-- selección de variables
-- ajuste de parámetros
-- clasificación supervisada
-- generación de mapas temáticos
+Se implementó un modelo Random Forest debido a:
 
----
+* robustez frente a ruido;
+* capacidad para manejar múltiples variables;
+* buen desempeño en clasificación ambiental;
+* interpretabilidad de resultados.
 
-# 5. Validación
+## Variables predictoras
 
-El proyecto incorpora validación cuantitativa del modelo.
+El modelo utiliza:
 
-## Métricas consideradas
-
-- matriz de confusión
-- accuracy
-- precision
-- recall
-- F1-score
+* bandas espectrales;
+* NDVI;
+* NDWI;
+* MNDWI;
+* FAI.
 
 ---
 
-# Evaluación de Desempeño
+# Validación
 
-La validación busca:
+La evaluación del modelo se realiza mediante división de muestras en conjuntos de entrenamiento y prueba.
 
-- evaluar consistencia técnica
-- reducir errores de clasificación
-- medir capacidad predictiva
-- comparar desempeño entre clases
+Las métricas calculadas incluyen:
 
----
+* matriz de confusión;
+* exactitud global (Accuracy);
+* Precisión (Precision);
+* Sensibilidad (Recall);
+* F1-Score;
+* Coeficiente Kappa.
 
-# 6. Análisis Temporal
-
-El sistema construye series históricas entre 2016 y 2025.
-
-## Objetivos del análisis temporal
-
-- detectar expansión del buchón
-- analizar cambios ecológicos
-- identificar tendencias espaciales
-- evaluar variabilidad temporal
+Estas métricas permiten cuantificar el desempeño del clasificador y estimar su capacidad de generalización.
 
 ---
 
-# 7. Escenarios Predictivos
+# Generación de series temporales
 
-El proyecto contempla análisis prospectivos para:
+Se construye una serie histórica mensual para el periodo 2016–2025.
 
-- 2030
-- 2040
-- 2050
+Para cada mes se estiman:
 
-Los escenarios buscan estimar posibles tendencias ecológicas bajo condiciones ambientales observadas.
+* área de agua;
+* área cubierta por buchón;
+* área de tierra firme y juncales;
+* superficie observable;
+* áreas afectadas por nubosidad.
 
-Nota:
-Los resultados representan escenarios probabilísticos y no predicciones exactas.
-
----
-
-# 8. Visualización y Dashboard
-
-Los resultados serán integrados en una plataforma visual interactiva.
-
-## Componentes previstos
-
-- mapas dinámicos
-- análisis temporal
-- indicadores ambientales
-- visualización geoespacial
-- zonas críticas
-- escenarios futuros
+Los resultados son exportados para análisis estadístico posterior.
 
 ---
 
-# Herramientas Utilizadas
+# Integración climática
 
-## Procesamiento Geoespacial
+Las variables climáticas son integradas a las series temporales ambientales con el fin de analizar posibles relaciones entre:
 
-- Google Earth Engine
+* precipitación;
+* temperatura;
+* dinámica del viento;
+* expansión de vegetación invasora.
 
-## Desarrollo y análisis
+---
 
-- Python
-- Pandas
-- NumPy
-- Scikit-learn
+# Visualización
 
-## Visualización
+El sistema incorpora herramientas de visualización desarrolladas en Google Earth Engine que permiten:
 
-- dashboards interactivos
-- visualización cloud
+* exploración temporal;
+* inspección espacial;
+* visualización de resultados clasificados;
+* control de calidad visual.
+
+---
+
+# Escenarios futuros
+
+La arquitectura desarrollada permitirá implementar modelos predictivos orientados a construir escenarios prospectivos para:
+
+* 2030;
+* 2040;
+* 2050.
+
+Estos escenarios buscarán apoyar procesos de monitoreo ambiental y toma de decisiones basadas en evidencia.
 
 ---
 
 # Reproducibilidad
 
-La metodología busca mantener:
+El proyecto utiliza exclusivamente herramientas de acceso abierto, datos abiertos y metodologías reproducibles.
 
-- trazabilidad
-- reproducibilidad
-- modularidad
-- escalabilidad
-
-mediante estructuras organizadas y herramientas de código abierto.
-
----
-
-# Alcance del Proyecto
-
-El proyecto se enfoca inicialmente en la Laguna de Fúquene como caso piloto.
-
-Sin embargo, la metodología fue diseñada para adaptarse a otros humedales y ecosistemas acuáticos colombianos.
+La estructura modular del repositorio permite la reutilización y adaptación del flujo metodológico en otros humedales y ecosistemas acuáticos de Colombia.
