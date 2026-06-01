@@ -1,0 +1,136 @@
+# Limitaciones del Proyecto
+
+## Introducción
+
+El Sistema de Inteligencia Ambiental Predictiva para Humedales Colombianos se encuentra actualmente en fase de desarrollo y validación. Aunque integra técnicas modernas de análisis geoespacial, inteligencia artificial y datos abiertos, existen limitaciones técnicas, operativas y científicas que deben ser consideradas al interpretar los resultados obtenidos.
+
+El reconocimiento de estas limitaciones busca garantizar transparencia metodológica, rigor científico y facilitar futuras mejoras del sistema.
+
+---
+
+## 1. Limitaciones de los datos satelitales
+
+### Resolución espacial
+
+La detección y clasificación de coberturas ambientales dependen de imágenes satelitales de libre acceso, principalmente Sentinel-2 y Landsat.
+
+Las resoluciones espaciales utilizadas presentan restricciones para identificar elementos de pequeña escala o transiciones complejas entre coberturas.
+
+* Sentinel-2: 10 metros por píxel.
+* Landsat: 30 metros por píxel.
+
+Esto puede generar incertidumbre en zonas donde el buchón de agua se encuentra mezclado con vegetación emergente, juncales o pequeños cuerpos de agua.
+
+### Nubosidad
+
+La región de estudio presenta una alta frecuencia de nubosidad durante gran parte del año.
+
+Aunque se aplican máscaras de nubes y composiciones temporales para minimizar este efecto, algunos periodos pueden presentar:
+
+* pérdida parcial de información;
+* reducción del área observable;
+* vacíos temporales en la serie histórica;
+* incertidumbre en la clasificación de determinadas zonas.
+
+---
+
+## 2. Limitaciones del entrenamiento supervisado
+
+### Geometrías de entrenamiento
+
+Las muestras utilizadas para entrenar el modelo fueron construidas mediante interpretación visual sobre imágenes satelitales.
+
+Aunque se seleccionaron zonas representativas de cada clase, pueden existir errores asociados a:
+
+* mezcla espectral;
+* cambios temporales en la cobertura;
+* delimitación manual de clases;
+* heterogeneidad ambiental propia del ecosistema.
+
+### Ausencia de validación GNSS de alta precisión
+
+Actualmente el proyecto no cuenta con campañas de campo utilizando receptores GNSS submétricos o centimétricos.
+
+La validación de las clases se realiza principalmente mediante interpretación visual y comparación con imágenes satelitales.
+
+La incorporación futura de datos obtenidos mediante:
+
+* GNSS diferencial;
+* receptores RTK;
+* drones con posicionamiento RTK;
+* levantamientos de campo georreferenciados;
+
+permitiría aumentar significativamente la precisión de las muestras de entrenamiento y validación.
+
+Esta limitación está asociada principalmente a restricciones logísticas y presupuestales propias de la fase actual del proyecto.
+
+---
+
+## 3. Limitaciones de los modelos de inteligencia artificial
+
+### Dependencia de los datos históricos
+
+Los modelos predictivos se entrenan utilizando patrones observados en series históricas.
+
+Como consecuencia, eventos extraordinarios o cambios abruptos pueden no estar representados adecuadamente en los escenarios proyectados.
+
+Ejemplos:
+
+* fenómenos climáticos extremos;
+* cambios regulatorios;
+* intervenciones de restauración ecológica;
+* modificaciones significativas en el uso del suelo;
+* eventos hidrológicos excepcionales.
+
+### Incertidumbre de escenarios futuros
+
+Las proyecciones para horizontes temporales como 2030, 2040 y 2050 representan escenarios probabilísticos y no predicciones determinísticas.
+
+Los resultados deben interpretarse como herramientas de apoyo para la toma de decisiones y no como estimaciones exactas del comportamiento futuro del ecosistema.
+
+---
+
+## 4. Limitaciones climáticas
+
+Las variables climáticas utilizadas provienen principalmente de fuentes globales de datos abiertos como ERA5-Land y CHIRPS.
+
+Aunque estas fuentes poseen amplia cobertura espacial y temporal, pueden presentar diferencias respecto a mediciones obtenidas directamente por estaciones meteorológicas locales.
+
+La incorporación de registros históricos adicionales provenientes del IDEAM y otras redes de monitoreo permitiría mejorar la representación climática del sistema.
+
+---
+
+## 5. Limitaciones operativas
+
+Actualmente el proyecto se desarrolla utilizando herramientas de acceso abierto y recursos computacionales gratuitos.
+
+Esto puede limitar:
+
+* la frecuencia de procesamiento;
+* el volumen de datos analizados;
+* la complejidad de algunos modelos de inteligencia artificial;
+* la generación masiva de productos geoespaciales;
+* la validación de campo a gran escala.
+
+---
+
+## 6. Oportunidades de mejora
+
+Las siguientes acciones podrían fortalecer futuras versiones del proyecto:
+
+* campañas de campo con GNSS diferencial o RTK;
+* validación mediante drones con sensores multiespectrales;
+* incorporación de imágenes de muy alta resolución espacial;
+* integración de variables hidrológicas adicionales;
+* implementación de modelos avanzados de aprendizaje profundo;
+* ampliación del sistema a otros humedales colombianos;
+* despliegue completo de infraestructura en la nube para procesamiento continuo;
+* integración con plataformas de monitoreo ambiental en tiempo real.
+
+---
+
+## Conclusión
+
+A pesar de las limitaciones identificadas, el sistema demuestra el potencial de los datos abiertos, la inteligencia artificial y el análisis geoespacial para apoyar procesos de monitoreo ambiental, gestión territorial y conservación de ecosistemas estratégicos en Colombia.
+
+Las limitaciones descritas representan oportunidades de fortalecimiento para futuras etapas de investigación, validación, cooperación institucional y escalamiento tecnológico.
